@@ -1,0 +1,53 @@
+CREATE DEFINER=`root`@`%` PROCEDURE `db_dotz`.`USP_DimIU_Component`()
+BEGIN
+
+-- Realiza insert de registros novos na tabela dimensão:
+insert into db_dotz.d_component(id, type_id, item_type, connection_type_id, outside_shape, base_type, height_over_tube, bolt_pattern_long, bolt_pattern_wide, groove, base_diameter, 
+shoulder_diameter, unique_feature, orientation, weight)
+select 
+	component_id,
+	component_type_id,
+	item_type,
+	connection_type_id,
+	outside_shape,
+	base_type,
+	height_over_tube,
+	bolt_pattern_long,
+	bolt_pattern_wide,
+	groove,
+	base_diameter,
+	shoulder_diameter,
+	unique_feature,
+	orientation,
+	weight
+from stg_comp_boss 	s
+where not exists 
+		(
+		select 
+			id
+		from db_dotz.d_component d
+		where d.id = s.component_id
+		);
+	
+-- Realiza update de registros antigos na tabela dimensão:
+UPDATE db_dotz.d_component 		d 
+JOIN db_dotz.stg_comp_boss 		t 	ON d.id = t.component_id
+SET 
+	d.type_id 				= t.component_type_id,
+	d.item_type  			= t.item_type,
+	d.connection_type_id  	= t.connection_type_id,
+	d.outside_shape  		= t.outside_shape,
+	d.base_type  			= t.base_type,
+	d.height_over_tube  	= t.height_over_tube,
+	d.bolt_pattern_long  	= t.bolt_pattern_long,
+	d.bolt_pattern_wide  	= t.bolt_pattern_wide,
+	d.groove  				= t.groove,
+	d.base_diameter   		= t.base_diameter,
+	d.shoulder_diameter   	= t.shoulder_diameter,
+	d.unique_feature  		= t.unique_feature,
+	d.orientation  			= t.orientation,
+	d.weight  				= t.weight
+WHERE d.id = t.component_id;
+
+
+END

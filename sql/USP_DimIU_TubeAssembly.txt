@@ -1,0 +1,114 @@
+CREATE DEFINER=`root`@`%` PROCEDURE `db_dotz`.`USP_DimIU_TubeAssembly`()
+BEGIN
+
+-- Drop tabela temporária
+drop temporary table if exists temp_bill_materials;
+
+-- Criação da tabela temporária que irá auxiliar no Insert e Update dos dados na tabela dimensão:	
+create temporary table if not exists temp_bill_materials as 
+(
+select 
+	tube_assembly_id,
+	component_id,
+	quantity,
+	un_d_tube_assembly
+from (
+	select 
+		tube_assembly_id							as tube_assembly_id,
+		component_id_1 								as component_id,
+		quantity_1									as quantity,
+		concat(tube_assembly_id, component_id_1)	as un_d_tube_assembly
+	from db_dotz.stg_bill_materials
+	
+	union all 
+	
+	select 
+		tube_assembly_id							as tube_assembly_id,
+		component_id_2 								as component_id,
+		quantity_2									as quantity,
+		concat(tube_assembly_id, component_id_2)	as un_d_tube_assembly
+	from db_dotz.stg_bill_materials
+	
+	union all 
+	
+	select 
+		tube_assembly_id							as tube_assembly_id,
+		component_id_3 								as component_id,
+		quantity_3									as quantity,
+		concat(tube_assembly_id, component_id_3)	as un_d_tube_assembly
+	from db_dotz.stg_bill_materials
+	
+	union all 
+	
+	select 
+		tube_assembly_id							as tube_assembly_id,
+		component_id_4 								as component_id,
+		quantity_4									as quantity,
+		concat(tube_assembly_id, component_id_4)	as un_d_tube_assembly
+	from db_dotz.stg_bill_materials
+	
+	union all 
+	
+	select 
+		tube_assembly_id							as tube_assembly_id,
+		component_id_5 								as component_id,
+		quantity_5									as quantity,
+		concat(tube_assembly_id, component_id_5)	as un_d_tube_assembly
+	from db_dotz.stg_bill_materials
+	
+	union all 
+	
+	select 
+		tube_assembly_id							as tube_assembly_id,
+		component_id_6 								as component_id,
+		quantity_6									as quantity,
+		concat(tube_assembly_id, component_id_6)	as un_d_tube_assembly
+	from db_dotz.stg_bill_materials
+	
+	union all 
+	
+	select 
+		tube_assembly_id							as tube_assembly_id,
+		component_id_7 								as component_id,
+		quantity_7									as quantity,
+		concat(tube_assembly_id, component_id_7)	as un_d_tube_assembly
+	from db_dotz.stg_bill_materials
+		
+	union all 
+	
+	select 
+		tube_assembly_id							as tube_assembly_id,
+		component_id_8 								as component_id,
+		quantity_8									as quantity,
+		concat(tube_assembly_id, component_id_8)	as un_d_tube_assembly
+	from db_dotz.stg_bill_materials
+	)t1
+where t1.component_id not in ('NA')
+);
+
+
+-- Realiza insert de registros novos na tabela dimensão:
+insert into d_tube_assembly (tube_assembly_id, component_id, quantity,un_d_tube_assembly)
+select 
+	tube_assembly_id,
+	component_id,
+	quantity,
+	un_d_tube_assembly
+from db_dotz.temp_bill_materials  t
+where not exists 
+	(
+	select 
+		un_d_tube_assembly
+	from d_tube_assembly d
+	where t.un_d_tube_assembly = d.un_d_tube_assembly
+	);
+
+
+-- Realiza update de registros antigos na tabela dimensão:
+UPDATE db_dotz.d_tube_assembly 		d 
+JOIN db_dotz.temp_bill_materials 	t 	ON d.un_d_tube_assembly = t.un_d_tube_assembly
+SET 
+	d.quantity = t.quantity
+WHERE d.un_d_tube_assembly = t.un_d_tube_assembly;
+
+END
