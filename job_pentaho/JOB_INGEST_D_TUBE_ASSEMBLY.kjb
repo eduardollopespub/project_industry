@@ -643,11 +643,11 @@ arquivo existe</note>
       <drawshadow>Y</drawshadow>
     </notepad>
     <notepad>
-      <note>Executa a tarefa de ingestão
-do arquivo excel</note>
-      <xloc>432</xloc>
+      <note>Exec ingestão
+arquivo excel</note>
+      <xloc>448</xloc>
       <yloc>80</yloc>
-      <width>158</width>
+      <width>83</width>
       <heigth>42</heigth>
       <fontname>Segoe UI</fontname>
       <fontsize>9</fontsize>
@@ -665,12 +665,11 @@ do arquivo excel</note>
       <drawshadow>Y</drawshadow>
     </notepad>
     <notepad>
-      <note>Executa as procedures que alimentam
-as tabelas dimensão e fato</note>
+      <note>Exec proc insert/update dimensão</note>
       <xloc>736</xloc>
       <yloc>80</yloc>
-      <width>210</width>
-      <heigth>42</heigth>
+      <width>191</width>
+      <heigth>26</heigth>
       <fontname>Segoe UI</fontname>
       <fontsize>9</fontsize>
       <fontbold>N</fontbold>

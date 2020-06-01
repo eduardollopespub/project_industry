@@ -665,12 +665,11 @@ arquivo excel</note>
       <drawshadow>Y</drawshadow>
     </notepad>
     <notepad>
-      <note>Exec proc 
-tabela fato</note>
-      <xloc>800</xloc>
-      <yloc>80</yloc>
-      <width>67</width>
-      <heigth>42</heigth>
+      <note>Exec proc insert/update dimensão</note>
+      <xloc>752</xloc>
+      <yloc>96</yloc>
+      <width>191</width>
+      <heigth>26</heigth>
       <fontname>Segoe UI</fontname>
       <fontsize>9</fontsize>
       <fontbold>N</fontbold>
