@@ -14,7 +14,7 @@
     </parameters>
   <connection>
     <name>db@dot</name>
-    <server>146.148.59.74</server>
+    <server>35.202.17.168</server>
     <type>MYSQL</type>
     <access>Native</access>
     <database>db_dotz</database>

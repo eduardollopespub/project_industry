@@ -501,7 +501,7 @@
   </notepads>
   <connection>
     <name>db@dotz</name>
-    <server>146.148.59.74</server>
+    <server>35.202.17.168</server>
     <type>MYSQL</type>
     <access>Native</access>
     <database>db_dotz</database>
@@ -696,7 +696,7 @@
     </partitioning>
     <valuename>Dias</valuename>
     <use_database>N</use_database>
-    <connection/>
+    <connection>db@dotz</connection>
     <schema/>
     <seqname>SEQ_</seqname>
     <use_counter>Y</use_counter>
@@ -737,13 +737,13 @@
         <currency/>
         <decimal/>
         <group/>
-        <nullif>01/04/2011</nullif>
+        <nullif>21/09/1982</nullif>
         <length>-1</length>
         <precision>-1</precision>
         <set_empty_string>N</set_empty_string>
       </field>
     </fields>
-    <limit>7500</limit>
+    <limit>13000</limit>
     <never_ending>N</never_ending>
     <interval_in_ms>5000</interval_in_ms>
     <row_time_field>now</row_time_field>

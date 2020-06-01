@@ -14,11 +14,10 @@ create table if not exists f_price_quote
 	quote_date 				date,
 	annual_usage 			int,
 	min_order_quantity 		int,
-	bracket_pricing 		int,
+	bracket_pricing 		varchar(3),
 	quantity 				int,
 	cost 					numeric(8,2),
-	constraint pk_f_price_quote primary key (sk_f_price_quote),
-	constraint fk_f_price_quote_assembly foreign key (tube_assembly_id) references d_tube_assembly (un_d_tube_assembly)
+	constraint pk_f_price_quote primary key (sk_f_price_quote)
 );
 
 insert into f_price_quote(tube_assembly_id, supplier, quote_date, annual_usage, min_order_quantity, bracket_pricing, quantity, cost)
